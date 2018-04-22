@@ -58,6 +58,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import am.appwise.components.ni.NoInternetDialog;
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -110,7 +111,7 @@ public class CreateEditItemActivity extends AppCompatActivity implements View.On
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
     }
-
+    NoInternetDialog noInternetDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +129,7 @@ public class CreateEditItemActivity extends AppCompatActivity implements View.On
                 onBackPressed();
             }
         });
+        noInternetDialog = new NoInternetDialog.Builder(this).build();
     }
 
     private void editMode() {
@@ -458,6 +460,7 @@ public class CreateEditItemActivity extends AppCompatActivity implements View.On
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        noInternetDialog.onDestroy();
     }
 
     @Override
